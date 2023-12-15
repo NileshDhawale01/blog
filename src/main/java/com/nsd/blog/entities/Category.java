@@ -21,22 +21,19 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user_master")
-public class User {
+@Table(name = "category")
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer categoryId;
 	
-	private String name;
+	@Column(name = "title" , nullable = false)
+	private String categoryTitle;
 	
-	@Column(name = "email" , nullable = false , length = 100)
-	private String email;
+	@Column(name = "description" , nullable = false ,length = 200)
+	private String categoryDescription;
 	
-	private String password;
-	
-	private String about;
-	
-	@OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "category" ,cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
 	private List<Post> posts;
 }
