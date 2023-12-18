@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,4 +39,36 @@ public class PostController {
 	}
 	// https://youtu.be/Uh-N_6Lccr4?si=0gI5NHU5-l52cEY2 
 	// 5.41.50
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Map<Object, Object>> getPostByCategoryId(@PathVariable Integer id){
+		Map<Object, Object> map = new HashMap<>();
+		map.put("data",postService.getPostsByBycategory(id));
+		map.put("success", true);
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/{id}")
+	public ResponseEntity<Map<Object, Object>> getPostByUserId(@PathVariable Integer id){
+		Map<Object, Object> map = new HashMap<>();
+		map.put("data", postService.getPostsByUser(id));
+		map.put("success", true);
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<Map<Object, Object>> getAllPosts(){
+		Map<Object, Object> map = new HashMap<>();
+		map.put("data", postService.getAllPosts());
+		map.put("success", true);
+		return new ResponseEntity<>(map,HttpStatus.OK);
+	}
+	
+	@GetMapping("/one/{id}")
+	public ResponseEntity<Map<Object, Object>> getPostByid(@PathVariable Integer id){
+		Map<Object, Object> map = new HashMap<>();
+		map.put("data", postService.getPostById(id));
+		map.put("success", true);
+		return new ResponseEntity<>(map,HttpStatus.OK);
+	}
 }
